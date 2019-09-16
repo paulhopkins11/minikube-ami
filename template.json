@@ -1,0 +1,40 @@
+{
+    "variables": {
+        "aws_access_key": "",
+        "aws_secret_key": "",
+        "source_ami_id": "ami-06358f49b5839867c"
+    },
+    "builders": [{
+        "type": "amazon-ebs",
+        "access_key": "{{user `aws_access_key`}}",
+        "secret_key": "{{user `aws_secret_key`}}",
+        "region": "eu-west-1",
+        "source_ami": "{{user `source_ami_id`}}",
+        "instance_type": "t2.micro",
+        "ssh_username": "ubuntu",
+        "ami_name": "ph-minikube {{timestamp}}"
+    }],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "{{template_dir}}/install-docker.sh"
+        },
+        {
+            "type": "shell",
+            "script": "{{template_dir}}/install-kubectl.sh"
+        },
+        {
+            "type": "shell",
+            "script": "{{template_dir}}/install-minikube.sh"
+        },
+        {
+            "type": "file",
+            "source": "{{template_dir}}/files/",
+            "destination": "/home/ubuntu/"
+        },
+        {
+            "type": "shell",
+            "inline": ["chmod +x /home/ubuntu/*.sh"]
+        }
+    ]
+}
