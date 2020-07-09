@@ -16,9 +16,10 @@ Template validated successfully.
 ```
 Next is the build:
 ```
-$ packer build --var 'aws_access_key=<YOUR_AWS_ACCESS_KEY>' --var 'aws_secret_key=<YOUR_AWS_SECRET_KEY>' template.json
+$ packer build --var 'aws_profile=<YOUR_AWS_PROFILE>' template.json
 ...
 ```
+*NOTE:* This depends on an AWS cli profile being set using `aws configure`
 
 ## Running
 

@@ -1,14 +1,14 @@
 {
+    "_comment": "eu-west-2 - Ubuntu Server 18.04 LTS (HVM), SSD Volume Type - ami-00f6a0c18edb19300",
     "variables": {
-        "aws_access_key": "",
-        "aws_secret_key": "",
-        "source_ami_id": "ami-06358f49b5839867c"
+        "aws_profile": "",
+        "aws_region": "eu-west-2",
+        "source_ami_id": "ami-00f6a0c18edb19300"
     },
     "builders": [{
         "type": "amazon-ebs",
-        "access_key": "{{user `aws_access_key`}}",
-        "secret_key": "{{user `aws_secret_key`}}",
-        "region": "eu-west-1",
+        "profile": "{{user `aws_profile`}}",
+        "region": "{{user `aws_region`}}",
         "source_ami": "{{user `source_ami_id`}}",
         "instance_type": "t2.micro",
         "ssh_username": "ubuntu",
@@ -26,6 +26,10 @@
         {
             "type": "shell",
             "script": "{{template_dir}}/install-minikube.sh"
+        },
+        {
+            "type": "shell",
+            "script": "{{template_dir}}/install-helm3.sh"
         },
         {
             "type": "file",
