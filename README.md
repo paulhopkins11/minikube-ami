@@ -1,10 +1,13 @@
-# minikube-ami
+# newsoft-tooling-ami
 
 This projec builds a simple ami containing:
 
+* awscli
 * docker
+* helm3
 * kubectl
 * minikube
+* terraform
 
 ## Building
 
