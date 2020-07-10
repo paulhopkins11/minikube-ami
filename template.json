@@ -3,7 +3,8 @@
     "variables": {
         "aws_profile": "",
         "aws_region": "eu-west-2",
-        "source_ami_id": "ami-00f6a0c18edb19300"
+        "source_ami_id": "ami-00f6a0c18edb19300",
+        "aws_ami_name": "newsoft-tools {{timestamp}}" 
     },
     "builders": [{
         "type": "amazon-ebs",
@@ -12,7 +13,7 @@
         "source_ami": "{{user `source_ami_id`}}",
         "instance_type": "t2.micro",
         "ssh_username": "ubuntu",
-        "ami_name": "ph-minikube {{timestamp}}"
+        "ami_name": "{{user `aws_ami_name`}}"
     }],
     "provisioners": [
         {
@@ -30,6 +31,14 @@
         {
             "type": "shell",
             "script": "{{template_dir}}/install-helm3.sh"
+        },
+        {
+            "type": "shell",
+            "script": "{{template_dir}}/install-awscli.sh"
+        },
+        {
+            "type": "shell",
+            "script": "{{template_dir}}/install-terraform.sh"
         },
         {
             "type": "file",

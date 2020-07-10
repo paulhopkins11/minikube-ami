@@ -19,6 +19,13 @@ Next is the build:
 $ packer build --var 'aws_profile=<YOUR_AWS_PROFILE>' template.json
 ...
 ```
+*OPTIONS:* You can also choose to include these variable overrides
+```
+--var 'aws_ami_name=<YOUR_AWS_AMI_NAME>'
+--var 'aws_region=<YOUR_AWS_REGION>'
+--var 'source_ami_id=<YOUR_AWS_AMI>'
+```
+
 *NOTE:* This depends on an AWS cli profile being set using `aws configure`
 
 ## Running
