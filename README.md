@@ -4,9 +4,11 @@ This project builds a simple ami on top of Ubuntu containing:
 
 * awscli
 * docker
+* golang
 * helm3
 * kubectl
 * minikube
+* packer
 * terraform
 
 ## Building
