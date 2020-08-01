@@ -18,6 +18,10 @@
     "provisioners": [
         {
             "type": "shell",
+            "script": "{{template_dir}}/install-golang.sh"
+        },
+        {
+            "type": "shell",
             "script": "{{template_dir}}/install-docker.sh"
         },
         {
@@ -39,6 +43,10 @@
         {
             "type": "shell",
             "script": "{{template_dir}}/install-terraform.sh"
+        },
+        {
+            "type": "shell",
+            "script": "{{template_dir}}/install-packer.sh"
         },
         {
             "type": "file",

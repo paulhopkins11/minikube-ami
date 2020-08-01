@@ -1,6 +1,6 @@
 # newsoft-tooling-ami
 
-This projec builds a simple ami containing:
+This project builds a simple ami on top of Ubuntu containing:
 
 * awscli
 * docker
