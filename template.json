@@ -3,59 +3,68 @@
     "variables": {
         "aws_profile": "",
         "aws_region": "eu-west-2",
-        "source_ami_id": "ami-00f6a0c18edb19300",
-        "aws_ami_name": "newsoft-tools {{timestamp}}" 
+        "source_ami_id": "ami-0a669382ea0feb73a",
+        "aws_ami_name": "newsoft-tools {{timestamp}}",
+        "architecture": "amazon-linux"
     },
-    "builders": [{
-        "type": "amazon-ebs",
-        "profile": "{{user `aws_profile`}}",
-        "region": "{{user `aws_region`}}",
-        "source_ami": "{{user `source_ami_id`}}",
-        "instance_type": "t2.micro",
-        "ssh_username": "ubuntu",
-        "ami_name": "{{user `aws_ami_name`}}"
-    }],
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "profile": "{{user `aws_profile`}}",
+            "region": "{{user `aws_region`}}",
+            "source_ami": "{{user `source_ami_id`}}",
+            "instance_type": "t2.micro",
+            "ssh_username": "ec2-user",
+            "ami_name": "{{user `aws_ami_name`}}"
+        }
+    ],
     "provisioners": [
         {
             "type": "shell",
-            "script": "{{template_dir}}/install-golang.sh"
+            "script": "{{template_dir}}/{{user `architecture`}}/yum-update.sh"
         },
         {
             "type": "shell",
-            "script": "{{template_dir}}/install-docker.sh"
+            "script": "{{template_dir}}/{{user `architecture`}}/install-golang.sh"
         },
         {
             "type": "shell",
-            "script": "{{template_dir}}/install-kubectl.sh"
+            "script": "{{template_dir}}/{{user `architecture`}}/install-docker.sh"
         },
         {
             "type": "shell",
-            "script": "{{template_dir}}/install-minikube.sh"
+            "script": "{{template_dir}}/{{user `architecture`}}/install-kubectl.sh"
         },
         {
             "type": "shell",
-            "script": "{{template_dir}}/install-helm3.sh"
+            "script": "{{template_dir}}/{{user `architecture`}}/install-minikube.sh"
         },
         {
             "type": "shell",
-            "script": "{{template_dir}}/install-awscli.sh"
+            "script": "{{template_dir}}/{{user `architecture`}}/install-helm3.sh"
         },
         {
             "type": "shell",
-            "script": "{{template_dir}}/install-terraform.sh"
+            "script": "{{template_dir}}/{{user `architecture`}}/install-awscli.sh"
         },
         {
             "type": "shell",
-            "script": "{{template_dir}}/install-packer.sh"
+            "script": "{{template_dir}}/{{user `architecture`}}/install-terraform.sh"
+        },
+        {
+            "type": "shell",
+            "script": "{{template_dir}}/{{user `architecture`}}/install-packer.sh"
         },
         {
             "type": "file",
             "source": "{{template_dir}}/files/",
-            "destination": "/home/ubuntu/"
+            "destination": "/home/ec2-user/"
         },
         {
             "type": "shell",
-            "inline": ["chmod +x /home/ubuntu/*.sh"]
+            "inline": [
+                "chmod +x /home/ec2-user/*.sh"
+            ]
         }
     ]
 }

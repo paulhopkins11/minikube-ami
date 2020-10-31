@@ -2,4 +2,4 @@
 
 echo "Install AWS cli"
 
-sudo apt install awscli -y
+sudo yum update -y
